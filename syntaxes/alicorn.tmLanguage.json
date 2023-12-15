@@ -39,8 +39,8 @@
 		  "patterns": [
 		  {
 			"name": "comment.block.alicorn",
-			"begin": "^(\\t*)#",
-			"end": "^(?!\\1\\t)(?=\\t*\\S)",
+			"begin": "^(\\t*+)#",
+			"end": "^(?!\\1\\t)(?=\\t*+\\S)",
 		  },
 		  {
 			"name": "comment.line.alicorn",
@@ -54,7 +54,7 @@
 				{
 				"name": "string.block.alicorn",
 				"begin": "^(\\t*+)\"{4}",
-				"end": "^(?!\\1\\t)(?=\\t*\\S)"
+				"end": "^(?!\\1\\t)(?=\\t*+\\S)"
 				"patterns": [
 					{
 					"name": "constant.character.escape.alicorn",
