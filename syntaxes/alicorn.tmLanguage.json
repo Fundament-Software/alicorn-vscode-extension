@@ -39,14 +39,13 @@
 		  "patterns": [
 		  {
 			"name": "comment.block.alicorn",
-			"begin": "^(\\t*)#",
-			"end": "^(?!\\1\\t)(?=\\t*\\S)",
-			"patterns": [
-				{
-				"name": "constant.character.escape.alicorn",
-				"match": "\\\\."
-				}
-			]
+			"begin": "^(\\t*+)#",
+			"end": "^(?!\\1\\t)(?=\\t*+\\S)"
+		  },
+		  {
+			"name": "comment.line.alicorn",
+			"begin": "#",
+			"end": "$"
 		  }
 		]
 		},
@@ -54,8 +53,14 @@
 			"patterns": [
 				{
 				"name": "string.block.alicorn",
-				"begin": "^(\\t*)\"\"\"\"",
-				"end": "^(?!\\1\\t)(?=\\t*\\S)"
+				"begin": "^(\\t*+)\"{4}",
+				"end": "^(?!\\1\\t)(?=\\t*+\\S)",
+				"patterns": [
+					{
+					"name": "constant.character.escape.alicorn",
+					"match": "\\\\."
+					}
+				]
 				},
 				{
 				"name": "string.quoted.double.alicorn",
@@ -71,7 +76,7 @@
 				{
 				"name": "string.quoted.single.alicorn",
 				"begin": "'",
-				"end": "\"|$",
+				"end": "'|$",
 				"patterns": [
 					{
 					"name": "constant.character.escape.alicorn",
