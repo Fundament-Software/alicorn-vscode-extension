@@ -9,7 +9,7 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+
   "main": "./out/extension.js",
   "contributes": {  
     "languages": [{
@@ -34,8 +34,21 @@
       {
         "command": "alicorn-test.helloWorld",
         "title": "Hello World"
+      },
+
+     {
+      "command": "alicorn.customBlockComment",
+      "title": "Custom Block Comment"
+    }
+    ],
+
+    "keybindings": [
+      {
+          "command": "alicorn.customBlockComment",
+          "key": "ctrl+/",
+          "when": "editorTextFocus && editorLangId == alicorn"
       }
-    ]
+  ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
