@@ -1,9 +1,46 @@
-# standard-template
-template repository for issue structure
-=======
-# alicorn-test README
+TODO: Fill in README template fields
 
-This is the README for your extension "alicorn-test". After writing up a brief description, we recommend including the following sections.
+# Nix usage
+
+flake:
+
+```nix
+# In flake.nix
+inputs.alicorn-vscode-extension = {
+	url = "github:Fundament-Software/alicorn-vscode-extension";
+	# optionally follow your own nixpkgs/flake-utils inputs
+	inputs.nixpkgs.follows = "nixpkgs";
+	inputs.flake-utils.follows = "flake-utils";
+};
+
+# Where you configure your vscode in home-manager
+# alicorn-vscode-extension needs to be the alicorn-vscode-extension flake input
+programs.vscode.extensions = [
+	alicorn-vscode-extension.packages.${pkgs.system}.alicorn-vscode-extension
+];
+```
+
+non-flake:
+
+```nix
+# Fetch the extension
+let alicorn-vscode-extension = pkgs.fetchFromGitHub {
+  owner = "Fundament-Software";
+  repo = "alicorn-vscode-extension";
+  ## Update rev and hash
+  rev = "some rev";
+  hash = "sha256-1ygmGX/FIK1wBPoVnnDJq1d2ptP7/ZxgCNZKUsCAHaQ=";
+}; 
+
+# Where you configure your vscode in home-manager
+programs.vscode.extensions = [
+	(pkgs.callPackage "${alicorn-vscode-extension}/alicorn-vscode-extension.nix" {};)
+];
+```
+
+# alicorn-vscode-extension README
+
+vscode extension for the Alicorn language
 
 ## Features
 
@@ -17,7 +54,7 @@ For example if there is an image subfolder under your extension project workspac
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+None yet. Likely needs an alicorn language server on PATH in the future.
 
 ## Extension Settings
 
@@ -30,45 +67,10 @@ This extension contributes the following settings:
 * `myExtension.enable`: Enable/disable this extension.
 * `myExtension.thing`: Set to `blah` to do something.
 
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+Not yet published
 
 ### 1.0.0
 
 Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
