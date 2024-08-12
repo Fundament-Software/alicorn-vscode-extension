@@ -2,6 +2,7 @@
   "name": "alicorn-test",
   "displayName": "Alicorn Test",
   "description": "Extension for Alicorn.",
+  "publisher": "fundament",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.84.0"
