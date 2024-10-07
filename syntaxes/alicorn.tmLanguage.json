@@ -39,7 +39,7 @@
 		  "patterns": [
 		  {
 			"name": "comment.block.alicorn",
-			"begin": "^(\\t*+)#",
+			"begin": "^(\\t*+)####",
 			"end": "^(?!\\1\\t)(?=\\t*+\\S)"
 		  },
 		  {
