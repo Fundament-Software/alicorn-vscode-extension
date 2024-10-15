@@ -27,7 +27,8 @@
     "configurationDefaults": {
       "[alicorn]": {
           "editor.insertSpaces": false,
-          "editor.tabSize": 4 
+          "editor.tabSize": 4,
+          "editor.wordSeparators": ",.;#()\\" 
       }
     },
 
