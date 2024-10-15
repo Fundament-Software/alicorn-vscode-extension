@@ -19,16 +19,16 @@ function customBlockComment() {
 
     const text = editor.document.getText(selection);
     const lines = text.split('\n');
-    const isFirstLineCommented = lines[0].startsWith('#\t');
+    const isFirstLineCommented = lines[0].startsWith('####');
 
     const processedLines = lines.map((line, index) => {
         if (index === 0) {
             if (isFirstLineCommented) {
                 // Uncomment the first line by removing #\t
-                return line.substring(2);
+                return line.substring(4);
             } else {
                 // Comment the first line
-                return '#\t' + line;
+                return '####' + line;
             }
         } else {
             if (isFirstLineCommented) {
@@ -39,7 +39,7 @@ function customBlockComment() {
                 return '\t' + line;
             }
         }
-    });
+    });    
 
     const modifiedText = processedLines.join('\n');
 
