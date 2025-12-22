@@ -37,7 +37,7 @@ let
     postBuild = ''
       npm run compile
       mkdir -p $vsix
-      echo y | vsce package -o $vsix/${pname}.zip
+      echo y | vsce package -o $vsix/${pname}.vsix
     '';
 
     preCheck = ''
@@ -49,7 +49,7 @@ in
 vscode-utils.buildVscodeExtension {
   inherit pname version vsix;
   name = "${pname}-${version}";
-  src = "${vsix}/${pname}.zip";
+  src = "${vsix}/${pname}.vsix";
   vscodeExtUniqueId = "${publisher}.${pname}";
   vscodeExtPublisher = publisher;
   vscodeExtName = pname;
