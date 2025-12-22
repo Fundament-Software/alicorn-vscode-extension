@@ -34,6 +34,38 @@
               deadnix.enable = true;
             };
           };
+          # Test that the combined extension drv home-manager wants to build will work with the alicorn extension
+          home-manager-compat =
+            let
+              ext = perSystem.packages.alicorn-vscode-extension;
+              subDir = "share/vscode/extensions";
+              extensionJson = builtins.toJSON (map
+                (e: {
+                  identifier.id = e.vscodeExtUniqueId;
+                  version = e.version or "0.0.0";
+                  location = {
+                    "$mid" = 1;
+                    path = "${e}/${subDir}/${e.vscodeExtUniqueId}";
+                    scheme = "file";
+                  };
+                  relativeLocation = e.vscodeExtUniqueId;
+                  metadata.installedTimestamp = 0;
+                }) [ ext ]);
+              extensionJsonFile = pkgs.writeTextDir "${subDir}/extensions.json" extensionJson;
+              combinedExtensionsDrv = pkgs.buildEnv {
+                name = "vscode-extensions";
+                paths = [ ext extensionJsonFile ];
+              };
+            in
+            pkgs.runCommand "home-manager-compat-check" { } ''
+              mkdir -p $out
+              for f in "${combinedExtensionsDrv}/${subDir}/${ext.vscodeExtUniqueId}" \
+                       "${combinedExtensionsDrv}/${subDir}/extensions.json" \
+                       "${combinedExtensionsDrv}/${subDir}/${ext.vscodeExtUniqueId}/package.json"; do
+                [ -e "$f" ] || { echo "Missing: $f"; exit 1; }
+                cat "$f" >> $out/result 2>/dev/null || echo "$f: directory" >> $out/result
+              done
+            '';
         } // perSystem.packages;
         formatter = pkgs.writeShellApplication {
           name = "run-formatters";
